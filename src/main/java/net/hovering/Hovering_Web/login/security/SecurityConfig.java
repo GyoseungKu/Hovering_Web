@@ -27,6 +27,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/register", "/login", "/css/**").permitAll()
+                        .requestMatchers("/admin/**").hasRole("ADMIN") // ADMIN 권한 필요
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

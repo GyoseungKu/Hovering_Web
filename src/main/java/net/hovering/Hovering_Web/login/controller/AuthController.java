@@ -20,15 +20,16 @@ public class AuthController {
 
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
-        model.addAttribute("user", new User());
-        return "register";
+        model.addAttribute("user", new User()); // User 객체를 모델에 추가
+        return "index"; // index.html 렌더링
     }
 
     @PostMapping("/register")
     public String processRegister(@ModelAttribute("user") User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole("USER"); // 기본 역할 설정
         userRepository.save(user);
-        return "redirect:/login";
+        return "redirect:/login"; // 로그인 페이지로 리디렉션
     }
 
     @GetMapping("/login")
@@ -40,6 +41,4 @@ public class AuthController {
     public String index() {
         return "index";
     }
-
 }
-
