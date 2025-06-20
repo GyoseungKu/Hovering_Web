@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>호버링</title>
+    <link rel="icon" href="https://file.gyoseung.me/bird.ico" type="image/x-icon" />
+
     <style>
         * {
             margin: 0;
@@ -32,8 +34,14 @@
         }
 
         header .logo {
+            display: flex;
+            align-items: center;
             font-size: 1.5rem;
             font-weight: bold;
+        }
+
+        header .logo img {
+            margin-right: 10px;
         }
 
         header nav a {
@@ -153,22 +161,22 @@
             }
         }
     </style>
+
 </head>
 <body>
 
-<!-- 상단 메뉴 -->
 <header>
     <div class="logo">
-        <img src="이미지 링크" alt="Hovering_Logo" />
+        <img src="https://file.gyoseung.me/bird.ico" alt="Hovering_Logo" />
+        <span>호버링</span>
     </div>
     <nav>
-        <a href="/about">About</a>
+        <a href="#about">About</a>
         <a href="/board">Community</a>
-        <a href="/signup">Join Club</a>
+        <a href="#signup">Join Club</a>
         <a href="/login">Sign in</a>
     </nav>
 </header>
-
 <!-- 메인 소개 화면 -->
 <div class="main-section">
     <video autoplay muted loop>
@@ -176,7 +184,11 @@
         동영상을 지원하지 않는 브라우저입니다.
     </video>
     <div class="main-title">Birdwatchers @ SYU</div>
-    <div class="main-subtitle">자연과 함께, 새와 함께<br>삼육대학교 탐조 동아리</div>
+    <div class="main-subtitle">
+        자연과 함께, 새와 함께<br>
+        삼육대학교 탐조 동아리<br>
+        호버링
+    </div>
 
     <a href="#about" class="scroll-down">
         <svg viewBox="0 0 24 24">
@@ -189,8 +201,8 @@
 <section class="content" id="about">
     <h2>동아리 소개</h2>
     <p>
-        삼육대학교 탐조 동아리는 자연 속에서 조류 관찰을 즐기며, 생태 감수성과 팀워크를 함께 키워가는 동아리입니다.<br>
-        계절별 탐조 여행, 조류 사진 촬영, 생태 리서치 등 다양한 활동을 진행합니다.
+        호버링은 자연 속에서 조류 관찰을 즐기며, 생태 감수성과 팀워크를 함께 키워가는 동아리입니다.<br>
+        계절별 탐조 여행, 조류 사진 촬영, 불암산 생태 조사 등 다양한 활동을 진행합니다.
     </p>
 
     <div class="gallery">
@@ -223,6 +235,24 @@
         <button type="submit">가입 신청</button>
     </form>
 </section>
+
+<!-- 푸터 -->
+<footer style="background-color: #222; color: white; text-align: center; padding: 2rem;">
+    <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 1rem;">
+        <a href="https://www.instagram.com/ho_birding.36" target="_blank" style="text-decoration: none;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1200px-Instagram_icon.png" alt="인스타그램 로고" style="width: 30px;">
+        </a>
+        <a href="https://www.instagram.com/ho_birding.36" target="_blank" style="color: white; text-decoration: none; margin-left: 10px; font-size: 1.2rem;">호버링 인스타그램</a>
+    </div>
+    <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 1rem;">
+        <a href="https://www.syu.ac.kr" target="_blank" style="text-decoration: none;">
+            <img src="https://www.syu.ac.kr/wp-content/themes/syu-main/images/logo/new_logo.png" alt="삼육대학교 로고" style="width: 180px;">
+        </a>
+    </div>
+    <div style="margin-top: 1rem;">
+        홈페이지 관련 문의: <a href="mailto:gyoseung@syuin.ac.kr" style="color: white; text-decoration: none;">gyoseung@syuin.ac.kr</a>
+    </div>
+</footer>
 
 </body>
 </html>
