@@ -46,7 +46,8 @@
         /* --- 메인 화면 --- */
         .main-section {
             height: 100vh;
-            background: url('https://images.unsplash.com/photo-1544986581-efac024faf62') no-repeat center center / cover;
+            position: relative;
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -54,6 +55,16 @@
             text-align: center;
             color: white;
             padding-top: 60px;
+        }
+
+        .main-section video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
         }
 
         .main-title {
@@ -148,7 +159,7 @@
 <!-- 상단 메뉴 -->
 <header>
     <div class="logo">
-        <img src="/img/logo.png" alt="Hovering Logo" />
+        <img src="이미지 링크" alt="Hovering_Logo" />
     </div>
     <nav>
         <a href="/about">About</a>
@@ -160,6 +171,10 @@
 
 <!-- 메인 소개 화면 -->
 <div class="main-section">
+    <video autoplay muted loop>
+        <source src="BackGroundTest.mp4" type="video/mp4">
+        동영상을 지원하지 않는 브라우저입니다.
+    </video>
     <div class="main-title">Birdwatchers @ SYU</div>
     <div class="main-subtitle">자연과 함께, 새와 함께<br>삼육대학교 탐조 동아리</div>
 
@@ -179,23 +194,33 @@
     </p>
 
     <div class="gallery">
-        <img src="https://images.unsplash.com/photo-1504306662894-5a64fdc52a05" alt="birdwatching 1">
-        <img src="https://images.unsplash.com/photo-1542273917363-3b1817f69a2d" alt="birdwatching 2">
-        <img src="https://images.unsplash.com/photo-1610878180933-1235e01e17d6" alt="birdwatching 3">
+        <img src="https://file.gyoseung.me/img1.jpg" alt="birdwatching_1">
+        <img src="https://file.gyoseung.me/img2.jpg" alt="birdwatching_2">
+        <img src="https://file.gyoseung.me/img3.jpg" alt="birdwatching_3">
     </div>
 </section>
 
-<!-- 동아리 가입 신청 -->
+<!-- 회원 및 동아리 가입 신청 -->
 <section class="content" id="signup">
-    <h2>가입 신청</h2>
+    <h2>회원 및 동아리 가입 신청</h2>
     <form th:action="@{/register}" method="post" th:object="${user}">
+        <!-- 회원 정보 -->
+        <h3>회원 정보</h3>
         이름: <input type="text" th:field="*{name}" required><br>
         학과: <input type="text" th:field="*{department}" required><br>
         학번: <input type="text" th:field="*{studentId}" required><br>
         이메일: <input type="email" th:field="*{email}" required><br>
         전화번호: <input type="text" th:field="*{phone}" required><br>
         비밀번호: <input type="password" th:field="*{password}" required><br>
-        <button type="submit">제출하기</button>
+
+        <br>
+        <!-- 동아리 가입 정보 -->
+        <h3>동아리 가입 정보</h3>
+        동아리 지원 동기: <textarea th:field="*{join.motivation}" required></textarea><br>
+        가장 흥미롭게 관찰한 새: <textarea th:field="*{join.favoriteBird}" required></textarea><br>
+        기타 하고 싶은 말: <textarea th:field="*{join.additionalComment}"></textarea><br>
+
+        <button type="submit">가입 신청</button>
     </form>
 </section>
 

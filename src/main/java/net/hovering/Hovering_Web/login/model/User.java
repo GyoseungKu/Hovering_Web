@@ -2,6 +2,8 @@ package net.hovering.Hovering_Web.login.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import net.hovering.Hovering_Web.join.model.Join;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -46,6 +48,11 @@ public class User {
     // 사용자 역할 (Master, 회장, 임원, 회원, 일반)
     @Column(nullable = false)
     private String role;
+
+    // 동아리 가입 신청 정보 - Join으로 연결
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "join_id", referencedColumnName = "id")
+    private Join join;
 
     // 최초 가입 신청 날짜
     @Column(nullable = false, updatable = false)
