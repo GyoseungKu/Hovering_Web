@@ -160,6 +160,68 @@
                 margin: 0.3rem 0;
             }
         }
+
+        /* 회원 및 동아리 가입 신청 섹션 스타일 */
+        section#signup {
+            padding: 3rem 2rem;
+            background-color: #f9f9f9;
+            color: #333;
+            text-align: left;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+
+        section#signup h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: #222;
+        }
+
+        section#signup h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #444;
+        }
+
+        section#signup form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        section#signup form input,
+        section#signup form textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        section#signup form input:focus,
+        section#signup form textarea:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        section#signup form button {
+            padding: 0.8rem 1.5rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        section#signup form button:hover {
+            background-color: #0056b3;
+        }
     </style>
 
 </head>
@@ -167,8 +229,10 @@
 
 <header>
     <div class="logo">
-        <img src="https://file.gyoseung.me/bird.ico" alt="Hovering_Logo" />
-        <span>호버링</span>
+        <a href="#" style="text-decoration: none; color: white;">
+            <img src="https://file.gyoseung.me/bird.ico" alt="Hovering_Logo" />
+            <span>호버링</span>
+        </a>
     </div>
     <nav>
         <a href="#about">About</a>
@@ -177,6 +241,7 @@
         <a href="/login">Sign in</a>
     </nav>
 </header>
+
 <!-- 메인 소개 화면 -->
 <div class="main-section">
     <video autoplay muted loop>
@@ -186,8 +251,7 @@
     <div class="main-title">Birdwatchers @ SYU</div>
     <div class="main-subtitle">
         자연과 함께, 새와 함께<br>
-        삼육대학교 탐조 동아리<br>
-        호버링
+        탐조 동아리 호버링
     </div>
 
     <a href="#about" class="scroll-down">
@@ -209,6 +273,7 @@
         <img src="https://file.gyoseung.me/img1.jpg" alt="birdwatching_1">
         <img src="https://file.gyoseung.me/img2.jpg" alt="birdwatching_2">
         <img src="https://file.gyoseung.me/img3.jpg" alt="birdwatching_3">
+
     </div>
 </section>
 
