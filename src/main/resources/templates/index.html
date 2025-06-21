@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>호버링</title>
-    <link rel="icon" href="https://file.gyoseung.me/bird.ico" type="image/x-icon" />
+    <link rel="icon" href="https://file.gyoseung.me/hovering/bird.ico" type="image/x-icon" />
 
     <style>
         * {
@@ -161,67 +161,6 @@
             }
         }
 
-        /* 회원 및 동아리 가입 신청 섹션 스타일 */
-        section#signup {
-            padding: 3rem 2rem;
-            background-color: #f9f9f9;
-            color: #333;
-            text-align: left;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
-            margin: 2rem auto;
-        }
-
-        section#signup h2 {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
-            color: #222;
-        }
-
-        section#signup h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #444;
-        }
-
-        section#signup form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        section#signup form input,
-        section#signup form textarea {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-
-        section#signup form input:focus,
-        section#signup form textarea:focus {
-            border-color: #007bff;
-            outline: none;
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-        }
-
-        section#signup form button {
-            padding: 0.8rem 1.5rem;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        section#signup form button:hover {
-            background-color: #0056b3;
-        }
     </style>
 
 </head>
@@ -230,14 +169,14 @@
 <header>
     <div class="logo">
         <a href="#" style="text-decoration: none; color: white;">
-            <img src="https://file.gyoseung.me/bird.ico" alt="Hovering_Logo" />
+            <img src="https://file.gyoseung.me/hovering/bird.ico" alt="Hovering_Logo" />
             <span>호버링</span>
         </a>
     </div>
     <nav>
         <a href="#about">About</a>
         <a href="/board">Community</a>
-        <a href="#signup">Join Club</a>
+        <a href="/register">Join Club</a>
         <a href="/login">Sign in</a>
     </nav>
 </header>
@@ -245,7 +184,7 @@
 <!-- 메인 소개 화면 -->
 <div class="main-section">
     <video autoplay muted loop>
-        <source src="BackGroundTest.mp4" type="video/mp4">
+        <source src="https://file.gyoseung.me/hovering/BackGround.mp4" type="video/mp4">
         동영상을 지원하지 않는 브라우저입니다.
     </video>
     <div class="main-title">Birdwatchers @ SYU</div>
@@ -270,35 +209,11 @@
     </p>
 
     <div class="gallery">
-        <img src="https://file.gyoseung.me/img1.jpg" alt="birdwatching_1">
-        <img src="https://file.gyoseung.me/img2.jpg" alt="birdwatching_2">
-        <img src="https://file.gyoseung.me/img3.jpg" alt="birdwatching_3">
+        <img src="https://file.gyoseung.me/hovering/img1.jpg" alt="birdwatching_1">
+        <img src="https://file.gyoseung.me/hovering/img2.jpg" alt="birdwatching_2">
+        <img src="https://file.gyoseung.me/hovering/img3.jpg" alt="birdwatching_3">
 
     </div>
-</section>
-
-<!-- 회원 및 동아리 가입 신청 -->
-<section class="content" id="signup">
-    <h2>회원 및 동아리 가입 신청</h2>
-    <form th:action="@{/register}" method="post" th:object="${user}">
-        <!-- 회원 정보 -->
-        <h3>회원 정보</h3>
-        이름: <input type="text" th:field="*{name}" required><br>
-        학과: <input type="text" th:field="*{department}" required><br>
-        학번: <input type="text" th:field="*{studentId}" required><br>
-        이메일: <input type="email" th:field="*{email}" required><br>
-        전화번호: <input type="text" th:field="*{phone}" required><br>
-        비밀번호: <input type="password" th:field="*{password}" required><br>
-
-        <br>
-        <!-- 동아리 가입 정보 -->
-        <h3>동아리 가입 정보</h3>
-        동아리 지원 동기: <textarea th:field="*{join.motivation}" required></textarea><br>
-        가장 흥미롭게 관찰한 새: <textarea th:field="*{join.favoriteBird}" required></textarea><br>
-        기타 하고 싶은 말: <textarea th:field="*{join.additionalComment}"></textarea><br>
-
-        <button type="submit">가입 신청</button>
-    </form>
 </section>
 
 <!-- 푸터 -->

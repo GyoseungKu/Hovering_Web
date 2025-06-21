@@ -21,7 +21,7 @@ public class AuthController {
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
         model.addAttribute("user", new User()); // User 객체를 모델에 추가
-        return "index"; // index.html 렌더링
+        return "register"; // register.html 렌더링
     }
 
     @PostMapping("/register")
@@ -35,10 +35,5 @@ public class AuthController {
     @GetMapping("/login")
     public String login() {
         return "login";
-    }
-
-    @GetMapping("/")
-    public String index() {
-        return "index";
     }
 }
