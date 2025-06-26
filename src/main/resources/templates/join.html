@@ -1,20 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<html lang="ko">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>로그인</title>
+    <title>동아리 가입 신청</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-
-        body, html {
-            font-family: 'Noto Sans KR', sans-serif;
-            scroll-behavior: smooth;
-            background-color: #f4f4f4;
         }
 
         header {
@@ -49,95 +43,59 @@
             font-size: 1rem;
         }
 
-        .login-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            padding-top: 60px;
+        body, html {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f4f4f4;
         }
 
-        .login-box {
+        .container {
+            max-width: 600px;
+            margin: 5rem auto;
             background-color: white;
             padding: 2rem;
             border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            width: 100%;
-            max-width: 400px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .login-box h2 {
+        h2 {
             text-align: center;
             margin-bottom: 1.5rem;
-            font-size: 1.8rem;
             color: #333;
         }
 
-        .login-box form {
+        form {
             display: flex;
             flex-direction: column;
-            gap: 1.2rem;
+            gap: 1rem;
         }
 
-        .login-box form input {
+        form textarea, form input {
             width: 100%;
-            padding: 0.9rem;
-            border: 1px solid #ddd;
+            padding: 0.8rem;
+            border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 1rem;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .login-box form input:focus {
+        form textarea:focus, form input:focus {
             border-color: #007bff;
             outline: none;
-            box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
         }
 
-        .login-box form button {
-            padding: 0.9rem 1.5rem;
+        form button {
+            padding: 0.8rem;
             background-color: #007bff;
             color: white;
             border: none;
             border-radius: 5px;
             font-size: 1rem;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            transition: background-color 0.3s ease;
         }
 
-        .login-box form button:hover {
+        form button:hover {
             background-color: #0056b3;
-            transform: scale(1.02);
-        }
-
-        .login-box .register-link {
-            text-align: center;
-            margin-top: 1rem;
-            font-size: 0.9rem;
-        }
-
-        .login-box .register-link a {
-            color: #007bff;
-            text-decoration: none;
-        }
-
-        .login-box .register-link a:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 768px) {
-            .login-box {
-                padding: 1.5rem;
-            }
-
-            .login-box h2 {
-                font-size: 1.5rem;
-            }
-
-            .login-box form input,
-            .login-box form button {
-                font-size: 0.9rem;
-            }
         }
     </style>
 </head>
@@ -154,27 +112,78 @@
         <a href="/#about">About</a>
         <a href="/board">Community</a>
         <a href="/register">Join Club</a>
-        <a href="/login">Sign in</a>
+        <span th:if="${#authentication != null and #authentication.principal != null}">
+    <a href="#" id="logout-button" style="cursor: pointer;">[[${#authentication.principal.username}]]</a>
+</span>
+        <a href="/login" th:if="${#authentication == null or #authentication.principal == null}">Sign in</a>
     </nav>
 </header>
 
-<div class="login-container">
-    <div class="login-box">
-        <h2>로그인</h2>
-        <form action="/login" method="post" th:action="@{/login}">
-            <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
-            <input type="text" name="username" placeholder="이메일" required>
-            <input type="password" name="password" placeholder="비밀번호" required>
-            <button type="submit">로그인</button>
-        </form>
-        <div th:if="${param.error}" style="color: red; text-align: center; margin-top: 1rem;">
-            이메일 또는 비밀번호가 잘못되었습니다.
-        </div>
-        <div class="register-link">
-            계정이 없으신가요? <a href="/join">회원가입</a>
-        </div>
-    </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const logoutButton = document.getElementById("logout-button");
+        if (logoutButton) {
+            logoutButton.addEventListener("click", function () {
+                if (confirm("로그아웃 하시겠습니까?")) {
+                    window.location.href = "/logout";
+                }
+            });
+        }
+    });
+</script>
+
+<div class="container">
+    <h2>회원가입</h2>
+    <form th:action="@{/join}" method="post" th:object="${user}">
+        <label for="name">이름:</label>
+        <input id="name" type="text" th:field="*{name}" required />
+
+        <label for="department">학과:</label>
+        <input id="department" type="text" th:field="*{department}" required />
+
+        <label for="studentId">학번:</label>
+        <input id="studentId" type="text" th:field="*{studentId}" required />
+
+        <label for="phone">전화번호:</label>
+        <input id="phone" type="text" th:field="*{phone}" required />
+
+        <label for="email">이메일:</label>
+        <input id="email" type="email" th:field="*{email}" required />
+        <button type="button" onclick="sendVerificationCode()">인증 코드 발송</button>
+
+        <label for="verificationCode">인증 코드:</label>
+        <input id="verificationCode" type="text" name="verificationCode" required />
+
+        <label for="password">비밀번호:</label>
+        <input id="password" type="password" th:field="*{password}" required />
+
+        <label for="confirmPassword">비밀번호 확인:</label>
+        <input id="confirmPassword" type="password" name="confirmPassword" required />
+
+        <button type="submit">회원가입</button>
+    </form>
 </div>
+
+<script>
+    function sendVerificationCode() {
+        const email = document.getElementById("email").value;
+        if (!email) {
+            alert("이메일을 입력하세요.");
+            return;
+        }
+
+        fetch("/verification/send?email=" + email, {
+            method: "POST"
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert("인증 코드가 이메일로 발송되었습니다.");
+                } else {
+                    alert("인증 코드 발송에 실패했습니다.");
+                }
+            });
+    }
+</script>
 
 <footer style="background-color: #222; color: white; text-align: center; padding: 2rem;">
     <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 1rem;">

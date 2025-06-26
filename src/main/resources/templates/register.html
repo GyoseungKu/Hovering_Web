@@ -3,10 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>회원 및 동아리 가입 신청</title>
-  <link rel="icon" href="https://file.gyoseung.me/hovering/bird.ico" type="image/x-icon" />
+  <title>동아리 가입 신청</title>
   <style>
-    /* 동일한 스타일 */
     * {
       margin: 0;
       padding: 0;
@@ -15,7 +13,7 @@
 
     body, html {
       font-family: 'Noto Sans KR', sans-serif;
-      scroll-behavior: smooth;
+      background-color: #f4f4f4;
     }
 
     header {
@@ -23,7 +21,7 @@
       position: fixed;
       top: 0;
       left: 0;
-      background-color: rgba(0, 0, 0, 0.7);
+      background-color: rgba(0, 0, 0, 0.8);
       color: white;
       display: flex;
       justify-content: space-between;
@@ -68,32 +66,19 @@
       color: #222;
     }
 
-    section#signup h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      color: #444;
-    }
-
     section#signup form {
       display: flex;
       flex-direction: column;
       gap: 1rem;
     }
 
-    section#signup form input,
-    section#signup form textarea {
+    section#signup form textarea,
+    section#signup form input {
       width: 100%;
       padding: 0.8rem;
       border: 1px solid #ccc;
       border-radius: 5px;
       font-size: 1rem;
-    }
-
-    section#signup form input:focus,
-    section#signup form textarea:focus {
-      border-color: #007bff;
-      outline: none;
-      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
     }
 
     section#signup form button {
@@ -104,27 +89,6 @@
       border-radius: 5px;
       font-size: 1rem;
       cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    section#signup form button:hover {
-      background-color: #0056b3;
-    }
-
-    footer {
-      background-color: #222;
-      color: white;
-      text-align: center;
-      padding: 2rem;
-    }
-
-    footer a {
-      color: white;
-      text-decoration: none;
-    }
-
-    footer img {
-      width: 30px;
     }
   </style>
 </head>
@@ -132,7 +96,7 @@
 
 <header>
   <div class="logo">
-    <a href="/#" style="text-decoration: none; color: white;">
+    <a href="/" style="text-decoration: none; color: white;">
       <img src="https://file.gyoseung.me/hovering/bird.ico" alt="Hovering_Logo" />
       <span>호버링</span>
     </a>
@@ -140,80 +104,58 @@
   <nav>
     <a href="/#about">About</a>
     <a href="/board">Community</a>
-    <a href="#">Join Club</a>
-    <a href="/login">Sign in</a>
+    <a href="/register">Join Club</a>
+    <span th:if="${#authentication != null and #authentication.principal != null}">
+    <a href="#" id="logout-button" style="cursor: pointer;">[[${#authentication.principal.username}]]</a>
+</span>
+    <a href="/login" th:if="${#authentication == null or #authentication.principal == null}">Sign in</a>
   </nav>
 </header>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const logoutButton = document.getElementById("logout-button");
+    if (logoutButton) {
+      logoutButton.addEventListener("click", function () {
+        if (confirm("로그아웃 하시겠습니까?")) {
+          window.location.href = "/logout";
+        }
+      });
+    }
+  });
+</script>
 
 <br><br><br>
 
 <section id="signup">
-  <h2>회원 및 동아리 가입 신청</h2>
-  <form th:action="@{/register}" method="post" th:object="${user}" onsubmit="return validatePasswords()">
-    <!-- 회원 정보 -->
-    <h3>회원 정보</h3>
-    이름: <input type="text" th:field="*{name}" required><br>
-    학과: <input type="text" th:field="*{department}" required><br>
-    학번: <input type="text" th:field="*{studentId}" required><br>
-    이메일:
-    <input type="email" th:field="*{email}" id="email" required>
-    <button type="button" id="sendCodeButton" onclick="sendVerificationCode()">인증 코드 발송</button><br>
-    인증 코드: <input type="text" id="verificationCode" placeholder="인증 코드를 입력하세요" required><br>
-    전화번호: <input type="text" th:field="*{phone}" required><br>
-    비밀번호: <input type="password" th:field="*{password}" id="password" required><br>
-    비밀번호 확인: <input type="password" id="confirmPassword" placeholder="비밀번호를 다시 입력하세요" required><br>
+  <h2>동아리 가입 신청</h2>
 
-    <br>
-    <!-- 동아리 가입 정보 -->
-    <h3>동아리 가입 정보</h3>
-    동아리 지원 동기: <textarea th:field="*{join.motivation}" required></textarea><br>
-    가장 흥미롭게 관찰한 새: <textarea th:field="*{join.favoriteBird}" required></textarea><br>
-    기타 하고 싶은 말: <textarea th:field="*{join.additionalComment}"></textarea><br>
+  <!-- 로그인된 상태에서만 동아리 가입 폼 표시 -->
+  <div th:if="${#authentication != null}">
+    <form th:action="@{/register}" method="post" th:object="${join}">
+      <label for="motivation">동아리 지원 동기:</label>
+      <textarea id="motivation" th:field="*{motivation}" required></textarea>
 
-    <button type="submit">가입 신청</button>
-  </form>
+      <label for="favoriteBird">가장 흥미롭게 관찰한 새:</label>
+      <textarea id="favoriteBird" th:field="*{favoriteBird}" required></textarea>
+
+      <label for="additionalComment">기타 하고 싶은 말:</label>
+      <textarea id="additionalComment" th:field="*{additionalComment}"></textarea>
+
+      <button type="submit">동아리 가입</button>
+    </form>
+  </div>
+
+  <!-- 비로그인 상태일 경우 안내 메시지 표시 -->
+  <div th:if="${#authentication == null}">
+    <p>동아리 가입 신청을 하려면 먼저 <a href="/login">로그인</a>하세요.</p>
+  </div>
 </section>
 
-<script>
-  function validatePasswords() {
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
-
-    if (password !== confirmPassword) {
-      alert('비밀번호가 일치하지 않습니다. 다시 확인해주세요.');
-      return false;
-    }
-    return true;
-  }
-
-  function sendVerificationCode() {
-    const email = document.getElementById('email').value;
-    if (!email) {
-      alert('이메일을 입력하세요.');
-      return;
-    }
-
-    fetch('/verification/send?email=' + encodeURIComponent(email), {
-      method: 'POST'
-    })
-            .then(response => {
-              if (response.ok) {
-                alert('인증 코드가 발송되었습니다.');
-              } else {
-                alert('인증 코드 발송에 실패했습니다.');
-              }
-            })
-            .catch(error => {
-              console.error('Error:', error);
-              alert('오류가 발생했습니다.');
-            });
-  }
-</script>
-
-<footer>
+<footer style="background-color: #222; color: white; text-align: center; padding: 2rem;">
   <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 1rem;">
     <a href="https://www.instagram.com/ho_birding.36" target="_blank" style="text-decoration: none;">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1200px-Instagram_icon.png" alt="인스타그램 로고">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1200px-Instagram_icon.png" alt="인스타그램 로고" style="width: 30px;">
     </a>
     <a href="https://www.instagram.com/ho_birding.36" target="_blank" style="color: white; text-decoration: none; margin-left: 10px; font-size: 1.2rem;">호버링 인스타그램</a>
   </div>
