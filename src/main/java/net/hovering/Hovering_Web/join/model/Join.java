@@ -3,7 +3,6 @@ package net.hovering.Hovering_Web.join.model;
 import jakarta.persistence.*;
 import lombok.*;
 import net.hovering.Hovering_Web.login.model.User;
-
 import java.time.LocalDateTime;
 
 @Entity

@@ -1,0 +1,33 @@
+<header>
+    <div class="logo">
+        <a href="/" style="text-decoration: none; color: white;">
+            <img src="https://file.gyoseung.me/hovering/bird.ico" alt="Hovering_Logo" />
+            <span>호버링</span>
+        </a>
+    </div>
+    <nav>
+        <a href="/#about">About</a>
+        <a> | </a>
+        <a href="/board">Community</a>
+        <a> | </a>
+        <a href="/register">Join Club</a>
+        <a> | </a>
+        <span th:if="${#authentication != null and #authentication.principal != null}">
+            <a href="#" id="logout-button" style="cursor: pointer;">[[${#authentication.principal.username}]]</a>
+        </span>
+        <a href="/login" th:if="${#authentication == null or #authentication.principal == null}">Sign in</a>
+    </nav>
+</header>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const logoutButton = document.getElementById("logout-button");
+        if (logoutButton) {
+            logoutButton.addEventListener("click", function () {
+                if (confirm("로그아웃 하시겠습니까?")) {
+                    window.location.href = "/logout";
+                }
+            });
+        }
+    });
+</script>

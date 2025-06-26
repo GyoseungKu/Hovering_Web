@@ -6,7 +6,6 @@ import net.hovering.Hovering_Web.verification.repository.VerificationCodeReposit
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Random;
@@ -55,7 +54,7 @@ public class VerificationService {
         var helper = new MimeMessageHelper(message, true);
         helper.setFrom("gyoseung0323@gmail.com");
         helper.setTo(email);
-        helper.setSubject("이메일 인증 코드");
+        helper.setSubject("[호버링] 이메일 인증 코드");
         helper.setText("인증 코드: " + code, true);
         mailSender.send(message);
     }
