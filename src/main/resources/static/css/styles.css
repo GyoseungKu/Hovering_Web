@@ -168,25 +168,20 @@ section.content p {
     opacity: 1;
 }
 
-/* --- 반응형 --- */
 @media (max-width: 768px) {
-    .gallery img {
+    .gallery {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .gallery-item {
         width: 90%;
         height: auto;
     }
 
-    header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    header nav {
-        margin-top: 0.5rem;
-    }
-
-    header nav a {
-        display: inline-block;
-        margin: 0.3rem 0;
+    .gallery-item img {
+        height: auto;
     }
 }
 
